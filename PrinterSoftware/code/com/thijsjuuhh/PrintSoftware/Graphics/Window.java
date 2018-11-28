@@ -12,6 +12,7 @@ public class Window extends JFrame {
 		setMinimumSize(new Dimension(width, height));
 		if(full_screen) 
 			setExtendedState(MAXIMIZED_BOTH);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(resizable);
 		setLocationRelativeTo(null);
 		setUndecorated(undecorated);
