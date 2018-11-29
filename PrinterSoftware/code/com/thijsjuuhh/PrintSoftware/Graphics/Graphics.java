@@ -7,8 +7,6 @@ public class Graphics {
 	private ArrayList<Render> toRender = new ArrayList<>();
 	public Render2D render2d;
 	private Window window;
-
-	private Sprite test = new Sprite("/images/test.jpg").resize(500, 200);
 	
 	private int width, height;
 
@@ -23,8 +21,7 @@ public class Graphics {
 		if (width != window.getWidth() || height != window.getHeight())
 			render2d.setDimensions(width = window.getWidth(), height = window.getHeight());
 		
-		render2d.clearScreen(0x00ff00);
-		render2d.renderSprite(0, 0, test);
+		render2d.clearScreen(0xBBBBBB);
 		
 		for (Render render : toRender)
 			render.render(render2d);
