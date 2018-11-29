@@ -7,7 +7,6 @@ public class Render2D {
 
 	public Render2D(int width, int height) {
 		setDimensions(width, height);
-
 	}
 
 	public void setDimensions(int width, int height) {
@@ -41,6 +40,16 @@ public class Render2D {
 		}
 	}
 
+	public void renderSprite(int x, int y, Sprite s) {
+		for(int y0 = 0; y0 < s.getHeight(); y0++) {
+			int yP = y0 + y;
+			for(int x0 = 0; x0 < s.getWidth(); x0++) {
+				int xP = x0 + x;
+				setPixel(xP, yP, s.pixels[x0 + y0 *s.getWidth()]);
+			}
+		}
+	}
+	
 	public void fillRect(int x, int y, int width, int height, int col) {
 		for (int y0 = 0; y0 < height; y0++) {
 			int yP = y0 + y;
