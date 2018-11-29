@@ -18,7 +18,7 @@ public class Main implements Runnable{
 	private int height;
 	
 	public Main() {
-		window = new Window(1200, 600, "Printer", false);
+		window = new Window(800, 600, "Printer", false);
 		
 		graphics = new Graphics(window);
 		

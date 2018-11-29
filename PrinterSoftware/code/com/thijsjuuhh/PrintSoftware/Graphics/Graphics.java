@@ -21,7 +21,8 @@ public class Graphics {
 		if (width != window.getWidth() || height != window.getHeight())
 			render2d.setDimensions(width = window.getWidth(), height = window.getHeight());
 		
-		render2d.fillRect(50, 50, 50, 50, 0x00ff00);
+		render2d.clearScreen(0x00ff00);
+		render2d.fillRect(10, 10, 100, 50, 0xff00000);
 		
 		for (Render render : toRender)
 			render.render(render2d);
