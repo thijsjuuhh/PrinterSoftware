@@ -6,6 +6,7 @@ import java.awt.image.DataBufferInt;
 
 import com.thijsjuuhh.PrintSoftware.Graphics.Graphics;
 import com.thijsjuuhh.PrintSoftware.Graphics.Window;
+import com.thijsjuuhh.PrintSoftware.Interface.PSButton;
 
 public class Main implements Runnable {
 
@@ -24,6 +25,9 @@ public class Main implements Runnable {
 
 		graphics = new Graphics(window);
 
+		window.add(new PSButton(60, 100, 50, 50, Textures))
+		
+		
 		Thread thread = new Thread(this);
 		thread.start();
 	}
