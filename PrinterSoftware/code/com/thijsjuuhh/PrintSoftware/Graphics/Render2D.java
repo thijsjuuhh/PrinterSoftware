@@ -39,13 +39,23 @@ public class Render2D {
 			pixels[i] = col;
 		}
 	}
+	
+	public void renderText(String text, int x, int y, Font font, int size) {
+		for(int index = 0; index < text.length(); index++) {
+			Sprite toRender = font.getChar(text.charAt(index)).resize(size, size);
+			renderSprite(x+index*toRender.getWidth()+index*font.spaceLength(size)*index, y, toRender);
+		}
+	}
 
 	public void renderSprite(int x, int y, Sprite s) {
 		for(int y0 = 0; y0 < s.getHeight(); y0++) {
 			int yP = y0 + y;
 			for(int x0 = 0; x0 < s.getWidth(); x0++) {
 				int xP = x0 + x;
-				setPixel(xP, yP, s.pixels[x0 + y0 *s.getWidth()]);
+				int col = s.pixels[x0 + y0 *s.getWidth()];
+				System.out.println(s.getTransparentColor() + " - " + 0xffff00ff);
+				if(col != s.getTransparentColor())
+					setPixel(xP, yP, col);
 			}
 		}
 	}

@@ -6,6 +6,7 @@ import java.awt.image.DataBufferInt;
 
 import com.thijsjuuhh.PrintSoftware.Graphics.Graphics;
 import com.thijsjuuhh.PrintSoftware.Graphics.Window;
+import com.thijsjuuhh.PrintSoftware.layout.Textures;
 
 public class Main implements Runnable {
 
@@ -57,6 +58,10 @@ public class Main implements Runnable {
 
 		graphics.render();
 
+		graphics.render2d.renderSprite(50, 50, Textures.basic.getChar('a').resize(100, 100));
+		
+		graphics.render2d.renderText("Hallo hoe gaat het?", 20, 90, Textures.basic, 20);
+		
 		int length = (pixels.length <= graphics.render2d.pixels.length) ? pixels.length
 				: graphics.render2d.pixels.length;
 

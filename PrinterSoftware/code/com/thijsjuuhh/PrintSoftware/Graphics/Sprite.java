@@ -11,18 +11,24 @@ public class Sprite {
 	private int width, height, x, y;
 	public int[] pixels;
 
-	public Sprite(Spritesheet sheet, int x, int y, int width, int height) {
+	private int transparent_color;
+	
+	public Sprite(Spritesheet sheet, int x, int y, int width, int height, int transparent_color) {
 		this.sheet = sheet;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-
-		if (x < 0 || x + width >= sheet.getWidth() || y < 0 || y + height >= sheet.getHeight())
-			throw new ArrayIndexOutOfBoundsException("Width or height exceeded!");
-
+		this.transparent_color = transparent_color;
+		
+		System.err.println(transparent_color);
+		
 		pixels = new int[width * height];
 		load();
+	}
+
+	public int getTransparentColor() {
+		return transparent_color;
 	}
 
 	public Sprite(String path) {
@@ -38,6 +44,7 @@ public class Sprite {
 	private Sprite(Sprite sprite, int width, int height) {
 		this.width = width;
 		this.height = height;
+		this.transparent_color = sprite.transparent_color;
 		BufferedImage img = new BufferedImage(sprite.getWidth(), sprite.getHeight(), BufferedImage.TYPE_INT_RGB);
 		img.setRGB(0, 0, sprite.getWidth(), sprite.getHeight(), sprite.pixels, 0, sprite.getWidth());
 		Image temp = img.getScaledInstance(width, height, BufferedImage.SCALE_DEFAULT);
