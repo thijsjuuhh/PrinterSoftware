@@ -39,27 +39,30 @@ public class Render2D {
 			pixels[i] = col;
 		}
 	}
-	
+
 	public void renderText(String text, int x, int y, Font font, int size) {
-		for(int index = 0; index < text.length(); index++) {
-			Sprite toRender = font.getChar(text.charAt(index)).resize(size, size);
-			renderSprite(x+index*toRender.getWidth()+index*font.spaceLength(size)*index, y, toRender);
+		renderText(text, x, y, font, size, 0xffffffff);
+	}
+
+	public void renderText(String text, int x, int y, Font font, int size, int col) {
+		for (int index = 0; index < text.length(); index++) {
+			Sprite toRender = font.getChar(text.charAt(index)).resize(size, size).replaceColor(0xffffffff, col);
+			renderSprite(x + index * toRender.getWidth() + index * font.spaceLength(size) * index, y, toRender);
 		}
 	}
 
 	public void renderSprite(int x, int y, Sprite s) {
-		for(int y0 = 0; y0 < s.getHeight(); y0++) {
+		for (int y0 = 0; y0 < s.getHeight(); y0++) {
 			int yP = y0 + y;
-			for(int x0 = 0; x0 < s.getWidth(); x0++) {
+			for (int x0 = 0; x0 < s.getWidth(); x0++) {
 				int xP = x0 + x;
-				int col = s.pixels[x0 + y0 *s.getWidth()];
-				System.out.println(s.getTransparentColor() + " - " + 0xffff00ff);
-				if(col != s.getTransparentColor())
+				int col = s.pixels[x0 + y0 * s.getWidth()];
+				if (col != s.getTransparentColor())
 					setPixel(xP, yP, col);
 			}
 		}
 	}
-	
+
 	public void fillRect(int x, int y, int width, int height, int col) {
 		for (int y0 = 0; y0 < height; y0++) {
 			int yP = y0 + y;
@@ -71,7 +74,7 @@ public class Render2D {
 	}
 
 	private void setPixel(int x, int y, int col) {
-		if(x >= 0 && x < width && y >= 0 && y < height)
-			pixels[x + y*width] = col;
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			pixels[x + y * width] = col;
 	}
 }

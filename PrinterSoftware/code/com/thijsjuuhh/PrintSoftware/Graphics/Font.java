@@ -21,13 +21,20 @@ public class Font {
 						spritesize, 0xffff00ff);
 	}
 
-	public Sprite getChar(char character) {
+	public Sprite getChar(char character) { 
 		for (int index = 0; index < order.length(); index++)
 			if (order.charAt(index) == character)
 				return characters[index];
 		return characters[characters.length - 1];
 	}
 
+	public Sprite[] getText(String text, int size, int color) {
+		Sprite[] result = new Sprite[text.length()];
+		for(int i = 0; i < text.length(); i++)
+			result[i] = getChar(text.charAt(i)).resize(size, size).replaceColor(0xffffffff, color);
+		return result;
+	}
+	
 	public int spaceLength(int size) {
 		return size / 16 * spacelength;
 	}
