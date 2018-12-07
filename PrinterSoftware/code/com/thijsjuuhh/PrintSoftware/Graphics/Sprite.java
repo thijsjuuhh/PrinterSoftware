@@ -3,7 +3,6 @@ package com.thijsjuuhh.PrintSoftware.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 public class Sprite {
 

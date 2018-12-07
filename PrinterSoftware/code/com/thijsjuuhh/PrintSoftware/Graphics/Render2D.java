@@ -44,11 +44,9 @@ public class Render2D {
 		renderText(text, x, y, font, size, 0xffffffff);
 	}
 
-	public void renderText(String text, int x, int y, Font font, int size, int col) {
-		for (int index = 0; index < text.length(); index++) {
-			Sprite toRender = font.getChar(text.charAt(index)).resize(size, size).replaceColor(0xffffffff, col);
-			renderSprite(x + index * toRender.getWidth() + index * font.spaceLength(size) * index, y, toRender);
-		}
+	public void renderText(String text, int x, int y, Font font, int size, int color) {
+		Text renderer = new Text(text, font, size, color);
+		renderer.render(this, x, y);
 	}
 
 	public void renderSprite(int x, int y, Sprite s) {

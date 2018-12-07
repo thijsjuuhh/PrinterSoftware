@@ -5,12 +5,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import com.thijsjuuhh.PrintSoftware.Graphics.Graphics;
-import com.thijsjuuhh.PrintSoftware.Graphics.Sprite;
 import com.thijsjuuhh.PrintSoftware.Graphics.Window;
-
 import com.thijsjuuhh.PrintSoftware.layout.Textures;
-
-import com.thijsjuuhh.PrintSoftware.Interface.PSButton;
 
 public class Main implements Runnable {
 
@@ -29,9 +25,6 @@ public class Main implements Runnable {
 
 		graphics = new Graphics(window);
 
-		window.add(new PSButton(60, 100, 50, 50, Textures))
-		
-		
 		Thread thread = new Thread(this);
 		thread.start();
 	}
@@ -65,14 +58,9 @@ public class Main implements Runnable {
 
 		graphics.render();
 
-		Sprite s = Textures.basic.getChar('p');
+		graphics.render2d.renderText("Hallo hoe gaat het met jou?", 20, 90, Textures.basic, 100);
 
-		System.out.println(s.getRealWidth() + " - " + s.getRealHeight());
 		
-		graphics.render2d.renderSprite(50, 50, Textures.basic.getChar('a').resize(100, 100));
-
-		graphics.render2d.renderText("Hallo hoe", 500, 90, Textures.basic, 16, 0x0055ff);
-
 		int length = (pixels.length <= graphics.render2d.pixels.length) ? pixels.length
 				: graphics.render2d.pixels.length;
 
