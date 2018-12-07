@@ -6,14 +6,11 @@ import java.awt.image.DataBufferInt;
 
 import com.thijsjuuhh.PrintSoftware.Graphics.Graphics;
 import com.thijsjuuhh.PrintSoftware.Graphics.Window;
-import com.thijsjuuhh.PrintSoftware.layout.Textures;
 
 public class Main implements Runnable {
 
 	private Window window;
 	private Graphics graphics;
-
-	int frames;
 
 	private BufferedImage img;
 	private int[] pixels;
@@ -30,7 +27,14 @@ public class Main implements Runnable {
 	}
 
 	public static void main(String[] args) {
+		new Debug();
 		new Main();
+		
+		Logger.log(0, "Initializing");
+		Logger.log(1, "not found!");
+		Logger.log(2, "ERROR");
+		Logger.log(3, "Succeeded!");
+		
 	}
 
 	@Override
@@ -57,9 +61,6 @@ public class Main implements Runnable {
 		}
 
 		graphics.render();
-
-		graphics.render2d.renderText("Hallo hoe gaat het met jou?", 20, 90, Textures.basic, 100);
-
 		
 		int length = (pixels.length <= graphics.render2d.pixels.length) ? pixels.length
 				: graphics.render2d.pixels.length;
