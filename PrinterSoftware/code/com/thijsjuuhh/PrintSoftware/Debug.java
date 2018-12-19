@@ -10,6 +10,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -34,9 +35,6 @@ public class Debug implements Runnable {
 	private int currentMessage = 0;
 	private int maxMessages = 15;
 	private int typeBarY = 100;
-
-	private String lastCommand;
-	private int lastMessage = 0;
 
 	public Debug() {
 		window = new Window(800, 600, "Printer", false, false, true, true);
@@ -95,7 +93,11 @@ public class Debug implements Runnable {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Logger.log(3, "Clicked?");
+				Random r = new Random();
+				int code = r.nextInt(4);
+				int ra = r.nextInt();
+				System.out.println(code + ra + "Clicked?");
+				Logger.log(code, ra + "Clicked?");
 			}
 		});
 
@@ -106,6 +108,8 @@ public class Debug implements Runnable {
 				currentMessage -= e.getWheelRotation();
 				if (currentMessage < 0)
 					currentMessage = 0;
+				if (currentMessage >= commands.size() - maxMessages + 3)
+					currentMessage = commands.size() < maxMessages ? 0 : commands.size() - maxMessages + 3;
 			}
 		});
 
@@ -126,7 +130,6 @@ public class Debug implements Runnable {
 
 	long prevTime = 0;
 	int frames = 0;
-	private int lastSize;
 
 	private synchronized void render() {
 		BufferStrategy bs = window.getBufferStrategy();
@@ -157,30 +160,23 @@ public class Debug implements Runnable {
 		int y = window.getHeight() - typeBarY + ((window.getHeight() - 40) / maxMessages) * (currentMessage - 1);
 		int color = 0;
 
-		if (!commands.isEmpty())
-			if (!commands.get(commands.size() - 1).equalsIgnoreCase(lastCommand) || lastMessage != currentMessage || lastSize != commands.size()) {
-				graphics.render();
-				System.out.println("rendering");
-				for (int i = commands.size() - 1; i >= 0; i--) {
-					if (commands.get(i).charAt(0) == Character.forDigit(Logger.INFO, 10))
-						color = 0;
-					else if (commands.get(i).charAt(0) == Character.forDigit(Logger.WARNING, 10))
-						color = 0xFFFFFF00;
-					else if (commands.get(i).charAt(0) == Character.forDigit(Logger.ERROR, 10))
-						color = 0xFFFF0000;
-					else if (commands.get(i).charAt(0) == Character.forDigit(Logger.SUCCEED, 10))
-						color = 0xFF00FF00;
-					graphics.render2d.renderText(commands.get(i).substring(1), x, y, Textures.basic,
-							(window.getHeight() - typeBarY - 20) / maxMessages, color);
-					y -= (window.getHeight() - 40) / maxMessages;
-				}
-				lastCommand = commands.get(commands.size() - 1);
-				lastMessage = currentMessage;
-				lastSize = commands.size();
+		graphics.render();
+		for (int i = commands.size() - 1; i >= 0; i--) {
+			if (commands.get(i).charAt(0) == Character.forDigit(Logger.INFO, 10))
+				color = 0;
+			else if (commands.get(i).charAt(0) == Character.forDigit(Logger.WARNING, 10))
+				color = 0xFFFFFF00;
+			else if (commands.get(i).charAt(0) == Character.forDigit(Logger.ERROR, 10))
+				color = 0xFFFF0000;
+			else if (commands.get(i).charAt(0) == Character.forDigit(Logger.SUCCEED, 10))
+				color = 0xFF00FF00;
+			graphics.render2d.renderText(commands.get(i).substring(1), x, y, Textures.basic,
+					(window.getHeight() - typeBarY - 20) / maxMessages, color);
+			y -= (window.getHeight() - 40) / maxMessages;
+		}
 
-				graphics.render2d.fillRect(0, window.getHeight() - typeBarY, width, window.getHeight(),
-						graphics.getBackgroundColor());
-			}
+		graphics.render2d.fillRect(0, window.getHeight() - typeBarY, width, window.getHeight(),
+				graphics.getBackgroundColor());
 
 		int length = (pixels.length <= graphics.render2d.pixels.length) ? pixels.length
 				: graphics.render2d.pixels.length;
