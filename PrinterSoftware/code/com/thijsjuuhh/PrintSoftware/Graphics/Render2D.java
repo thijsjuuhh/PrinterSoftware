@@ -1,5 +1,7 @@
 package com.thijsjuuhh.PrintSoftware.Graphics;
 
+import com.thijsjuuhh.PrintSoftware.layout.Textures;
+
 public class Render2D {
 
 	private int width, height;
@@ -50,9 +52,11 @@ public class Render2D {
 	}
 
 	public void renderSprite(int x, int y, Sprite s) {
-		for (int y0 = 0; y0 < s.getHeight(); y0++) {
+		if(s.equals(Textures.basic.getChar('i').resize(500, 500)))
+		System.out.println(s.getX());
+		for (int y0 = s.getY(); y0 < s.getRealHeight() + s.getY(); y0++) {
 			int yP = y0 + y;
-			for (int x0 = 0; x0 < s.getWidth(); x0++) {
+			for (int x0 = s.getX(); x0 < s.getRealWidth() + s.getX(); x0++) {
 				int xP = x0 + x;
 				int col = s.pixels[x0 + y0 * s.getWidth()];
 				if (col != s.getTransparentColor())

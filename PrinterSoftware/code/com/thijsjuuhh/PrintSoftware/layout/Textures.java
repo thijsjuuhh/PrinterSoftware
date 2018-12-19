@@ -9,8 +9,8 @@ public class Textures {
 	}
 	
 	
+	public static Sprite button = new Sprite("/images/layout/basic_button.png");
 	public static Font basic = new Font("/images/font/basic.png", 16);
 	
-	public static Sprite button = new Sprite("/images/layout/basic_button.png");
 	
 }

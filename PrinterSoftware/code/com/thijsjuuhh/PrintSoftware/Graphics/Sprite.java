@@ -8,7 +8,7 @@ public class Sprite {
 
 	private Spritesheet sheet;
 
-	private int width, height, x, y;
+	private int width, height, x, y, real_x, real_y;
 	private int real_width, real_height;
 	public int[] pixels;
 
@@ -45,6 +45,7 @@ public class Sprite {
 	}
 
 	private Sprite(Sprite sprite, int width, int height) {
+
 		this.width = width;
 		this.height = height;
 		this.transparent_color = sprite.transparent_color;
@@ -57,9 +58,11 @@ public class Sprite {
 		g.dispose();
 
 		pixels = new int[width * height];
+
 		load(img);
 
 		calculateRealSize();
+
 	}
 
 	public Sprite resize(int new_width, int new_height) {
@@ -86,20 +89,24 @@ public class Sprite {
 			}
 		}
 
-		
 		for (int x = 0; x < width && left == -1; x++) {
-			for (int y = 0; y < height; y++) {
-				if (pixels[x + y * width] != transparent_color)
+			for (int y = 0; y < height && left == -1; y++) {
+				if (pixels[x + y * width] != transparent_color) {
 					left = x;
+				}
 			}
 		}
 
 		for (int x = width - 1; x >= 0 && right == -1; x--) {
-			for (int y = 0; y < height; y++) {
-				if (pixels[x + y * width] != transparent_color)
-					right = y;
+			for (int y = 0; y < height && right == -1; y++) {
+				if (pixels[x + y * width] != transparent_color) {
+					right = x;
+				}
 			}
 		}
+		
+		real_x = left;
+		real_y = top;
 		
 		real_width = right - left + 1;
 		real_height = bottom - top + 1;
@@ -133,11 +140,30 @@ public class Sprite {
 		return height;
 	}
 
+	public int getX() {
+		return real_x;
+	}
+
+	public int getY() {
+		return real_y;
+	}
+	
 	public int getRealWidth() {
 		return real_width;
 	}
 
 	public int getRealHeight() {
 		return real_height;
+	}
+
+	public boolean equals(Sprite sprite) {
+		if (pixels == null || sprite.pixels == null)
+			return false;
+		if (sprite.pixels.length != pixels.length)
+			return false;
+		for (int i = 0; i < pixels.length; i++)
+			if (pixels[i] != sprite.pixels[i])
+				return false;
+		return true;
 	}
 }

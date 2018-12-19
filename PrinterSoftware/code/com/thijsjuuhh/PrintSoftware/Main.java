@@ -16,6 +16,8 @@ public class Main implements Runnable {
 	private int[] pixels;
 	private int width;
 	private int height;
+	private long prevTime;
+	private int frames;
 
 	public Main() {
 		window = new Window(800, 600, "Printer", true);
@@ -44,13 +46,21 @@ public class Main implements Runnable {
 		}
 	}
 
+	
+	
 	private void render() {
 		BufferStrategy bs = window.getBufferStrategy();
 		if (bs == null) {
 			window.createBufferStrategy(3);
 			return;
 		}
-
+		frames++;
+		long curTime = System.currentTimeMillis();
+		if(curTime - prevTime >= 1000) {
+			prevTime = curTime;
+		//	System.out.println(frames + ": FPS");
+			frames = 0;
+		}
 		if (window.getWidth() != width || window.getHeight() != height) {
 			width = window.getWidth();
 			height = window.getHeight();
@@ -59,7 +69,7 @@ public class Main implements Runnable {
 			pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
 		}
-
+		
 		graphics.render();
 		
 		int length = (pixels.length <= graphics.render2d.pixels.length) ? pixels.length

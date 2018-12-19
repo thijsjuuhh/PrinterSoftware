@@ -34,7 +34,7 @@ public class Font {
 		Sprite[] result = new Sprite[text.length()];
 		for (int i = 0; i < text.length(); i++) {
 			Sprite sprite = getChar(text.charAt(i));
-			if(sprite != null)
+			if (sprite != null)
 				sprite = sprite.resize(size, size).replaceColor(0xffffffff, color);
 			result[i] = sprite;
 		}
