@@ -157,30 +157,24 @@ public class Debug implements Runnable {
 		int y = window.getHeight() - typeBarY + ((window.getHeight() - 40) / maxMessages) * (currentMessage - 1);
 		int color = 0;
 
-		if (!commands.isEmpty())
-			if (!commands.get(commands.size() - 1).equalsIgnoreCase(lastCommand) || lastMessage != currentMessage || lastSize != commands.size()) {
-				graphics.render();
-				System.out.println("rendering");
-				for (int i = commands.size() - 1; i >= 0; i--) {
-					if (commands.get(i).charAt(0) == Character.forDigit(Logger.INFO, 10))
-						color = 0;
-					else if (commands.get(i).charAt(0) == Character.forDigit(Logger.WARNING, 10))
-						color = 0xFFFFFF00;
-					else if (commands.get(i).charAt(0) == Character.forDigit(Logger.ERROR, 10))
-						color = 0xFFFF0000;
-					else if (commands.get(i).charAt(0) == Character.forDigit(Logger.SUCCEED, 10))
-						color = 0xFF00FF00;
-					graphics.render2d.renderText(commands.get(i).substring(1), x, y, Textures.basic,
-							(window.getHeight() - typeBarY - 20) / maxMessages, color);
-					y -= (window.getHeight() - 40) / maxMessages;
-				}
-				lastCommand = commands.get(commands.size() - 1);
-				lastMessage = currentMessage;
-				lastSize = commands.size();
+		graphics.render();
+		for (int i = commands.size() - 1; i >= 0; i--) {
+			if (commands.get(i).charAt(0) == Character.forDigit(Logger.INFO, 10))
+				color = 0;
+			else if (commands.get(i).charAt(0) == Character.forDigit(Logger.WARNING, 10))
+				color = 0xFFFFFF00;
+			else if (commands.get(i).charAt(0) == Character.forDigit(Logger.ERROR, 10))
+				color = 0xFFFF0000;
+			else if (commands.get(i).charAt(0) == Character.forDigit(Logger.SUCCEED, 10))
+				color = 0xFF00FF00;
+			graphics.render2d.renderText(commands.get(i).substring(1), x, y, Textures.basic,
+					(window.getHeight() - typeBarY - 20) / maxMessages, color);
 
-				graphics.render2d.fillRect(0, window.getHeight() - typeBarY, width, window.getHeight(),
-						graphics.getBackgroundColor());
-			}
+			y -= (window.getHeight() - 40) / maxMessages;
+
+			graphics.render2d.fillRect(0, window.getHeight() - typeBarY, width, window.getHeight(),
+					graphics.getBackgroundColor());
+		}
 
 		int length = (pixels.length <= graphics.render2d.pixels.length) ? pixels.length
 				: graphics.render2d.pixels.length;
