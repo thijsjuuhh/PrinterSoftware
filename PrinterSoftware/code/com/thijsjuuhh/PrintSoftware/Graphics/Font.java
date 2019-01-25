@@ -1,5 +1,7 @@
 package com.thijsjuuhh.PrintSoftware.Graphics;
 
+import java.util.HashMap;
+
 public class Font {
 
 	private Spritesheet sheet;
@@ -8,6 +10,8 @@ public class Font {
 	private int spacelength = 8;
 	private String order = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{*}~ ";
 
+	private HashMap<String, Sprite[]> memory = new HashMap<>();
+	
 	public Font(String path, int spritesize) {
 		sheet = new Spritesheet(path);
 		rowlength = sheet.getWidth() / spritesize;
@@ -30,7 +34,10 @@ public class Font {
 		return characters[characters.length - 1];
 	}
 
+	
 	public Sprite[] getText(String text, int size, int color) {
+		if(memory.containsKey(text))
+			return memory.get(text);
 		Sprite[] result = new Sprite[text.length()];
 		for (int i = 0; i < text.length(); i++) {
 			Sprite sprite = getChar(text.charAt(i));
@@ -38,6 +45,7 @@ public class Font {
 				sprite = sprite.resize(size, size).replaceColor(0xffffffff, color);
 			result[i] = sprite;
 		}
+		memory.put(text, result);
 		return result;
 	}
 

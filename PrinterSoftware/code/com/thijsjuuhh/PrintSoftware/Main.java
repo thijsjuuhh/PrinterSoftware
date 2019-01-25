@@ -29,14 +29,10 @@ public class Main implements Runnable {
 	}
 
 	public static void main(String[] args) {
+		Logger.log(Logger.INFO, "Booting...");
 		new Debug();
 		new Main();
-		
-		Logger.log(0, "Initializing");
-		Logger.log(1, "not found!");
-		Logger.log(2, "ERROR");
-		Logger.log(3, "Succeeded!");
-		
+		Logger.log(Logger.SUCCEED, "Succes!");
 	}
 
 	@Override
@@ -46,8 +42,6 @@ public class Main implements Runnable {
 		}
 	}
 
-	
-	
 	private void render() {
 		BufferStrategy bs = window.getBufferStrategy();
 		if (bs == null) {
@@ -56,9 +50,9 @@ public class Main implements Runnable {
 		}
 		frames++;
 		long curTime = System.currentTimeMillis();
-		if(curTime - prevTime >= 1000) {
+		if (curTime - prevTime >= 1000) {
 			prevTime = curTime;
-		//	System.out.println(frames + ": FPS");
+			System.out.println(frames + ": FPS");
 			frames = 0;
 		}
 		if (window.getWidth() != width || window.getHeight() != height) {
@@ -69,9 +63,8 @@ public class Main implements Runnable {
 			pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
 		}
-		
 		graphics.render();
-		
+
 		int length = (pixels.length <= graphics.render2d.pixels.length) ? pixels.length
 				: graphics.render2d.pixels.length;
 

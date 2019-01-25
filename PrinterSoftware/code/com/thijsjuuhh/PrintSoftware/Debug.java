@@ -35,9 +35,6 @@ public class Debug implements Runnable {
 	private int maxMessages = 15;
 	private int typeBarY = 100;
 
-	private String lastCommand;
-	private int lastMessage = 0;
-
 	public Debug() {
 		window = new Window(800, 600, "Printer", false, false, true, true);
 
@@ -75,29 +72,6 @@ public class Debug implements Runnable {
 			}
 		});
 
-		window.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Logger.log(3, "Clicked?");
-			}
-		});
 
 		window.addMouseWheelListener(new MouseWheelListener() {
 
@@ -123,10 +97,6 @@ public class Debug implements Runnable {
 			render();
 		}
 	}
-
-	long prevTime = 0;
-	int frames = 0;
-	private int lastSize;
 
 	private synchronized void render() {
 		BufferStrategy bs = window.getBufferStrategy();
@@ -169,12 +139,11 @@ public class Debug implements Runnable {
 				color = 0xFF00FF00;
 			graphics.render2d.renderText(commands.get(i).substring(1), x, y, Textures.basic,
 					(window.getHeight() - typeBarY - 20) / maxMessages, color);
-
 			y -= (window.getHeight() - 40) / maxMessages;
-
-			graphics.render2d.fillRect(0, window.getHeight() - typeBarY, width, window.getHeight(),
-					graphics.getBackgroundColor());
 		}
+
+		graphics.render2d.fillRect(0, window.getHeight() - typeBarY, width, window.getHeight(),
+				graphics.getBackgroundColor());
 
 		int length = (pixels.length <= graphics.render2d.pixels.length) ? pixels.length
 				: graphics.render2d.pixels.length;

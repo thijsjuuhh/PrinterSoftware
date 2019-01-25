@@ -18,9 +18,10 @@ public class Graphics {
 		render2d = new Render2D(width, height);
 	}
 
-	public void render() {
+	public void render() {	
 		if (width != window.getWidth() || height != window.getHeight())
 			render2d.setDimensions(width = window.getWidth(), height = window.getHeight());
+		
 		
 		render2d.clearScreen(backgroundColor);
 		

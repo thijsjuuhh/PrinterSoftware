@@ -13,7 +13,6 @@ public class Text {
 	}
 
 	public void render(Render2D render, int x, int y) {
-
 		for (int i = 0; i < textSprites.length; i++) {
 			Sprite sprite = textSprites[i];
 			if (sprite == null) {
